@@ -175,7 +175,7 @@ public class MedicalDocumentsController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Accept", "application/json");
-        headers.set("Authorization", "Bearer oJfPT7nhQDJNAecjDQ3L89UOJYPaIH9L9Ji1VRz7");
+        headers.set("Authorization", "Bearer oJfPTyourtoken9Ji1VRz7");
 
         String body = "{\"max_tokens\":200,\"truncate\":\"END\",\"return_likelihoods\":\"NONE\"," +
                 "\"prompt\":\"" + questionForm.getQuestion() + "\"}";
