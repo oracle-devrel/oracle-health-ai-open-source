@@ -1,7 +1,4 @@
 #!/bin/bash
-#./mkstore -wrl /Users/pparkins/Downloads/Wallet_gdpaulob2o-wpw -createCredential  gdpaulob2o_tp admin "Welcome12345;#"
-
-#use "base64 -w0 README" instead of "base64 < README" on linux
 
 if kubectl apply -f - ; then
     echo "secret applied for wallet."
