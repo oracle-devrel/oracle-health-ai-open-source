@@ -6,7 +6,6 @@ import 'dart:typed_data'; // for Uint8List
 import 'piechart.dart' as piechart; 
 import 'constants.dart' as constants;
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -23,13 +22,7 @@ class MyForm extends StatefulWidget {
   _MyFormState createState() => _MyFormState();
 }
 
-
-
-
-
-
 class _MyFormState extends State<MyForm> {
-  String? dropdownValue;
   Uint8List? fileBytes; 
   String? serverResponse;
   Map<String, dynamic>? parsedResponse ;
@@ -46,20 +39,12 @@ class _MyFormState extends State<MyForm> {
         filename: 'imageforanalysis.png', 
       ));
     }
-
-    request.fields['model'] = dropdownValue ?? '';
-
+    // Removed dropdownValue logic
     var response = await request.send();
     final respStr = await response.stream.bytesToString();  
-
-
     setState(() {
       serverResponse = respStr;
-   //   parsedResponse = jsonDecode(respStr);
-   //   var labels = parsedResponse['labels'] as List?;
-
     });
-
     if (response.statusCode == 200) {
       print("Successfully uploaded");
     } else {
@@ -71,34 +56,11 @@ class _MyFormState extends State<MyForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:  Colors.blue, title: Text('Image Analysis')),
+        backgroundColor:  Colors.blue, title: Text('Medical Documents')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            DropdownButton<String>(
-              value: dropdownValue,
-              hint: Text('Please choose one'),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownValue = newValue!;
-                });
-              },
-              items: [
-                DropdownMenuItem<String>(
-                  value: 'breastcancer',
-                  child: Text('Breast Cancer and Normal Breast Model'),
-                ),
-                DropdownMenuItem<String>(
-                  value: 'covid',
-                  child: Text('Covid, Pneumonia, and Normal Chest Model'),
-                ),
-                DropdownMenuItem<String>(
-                  value: 'lungcancer',
-                  child: Text('Lung Cancer and Normal Lung Model'),
-                ),
-              ],
-            ),
             ElevatedButton(
               onPressed: () async {
                 FilePickerResult? result = await FilePicker.platform.pickFiles(withData: true);

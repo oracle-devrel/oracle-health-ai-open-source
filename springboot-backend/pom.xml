@@ -19,7 +19,7 @@
 		<oracle.jdbc.version>21.7.0.0</oracle.jdbc.version>
 		<spring.boot.version>2.7.6</spring.boot.version>
 		<spring.vault.version>3.1.1</spring.vault.version>
-		<oci.sdk.version>3.2.0</oci.sdk.version>
+		<oci.sdk.version>3.29.0</oci.sdk.version>
 
 
 		<jib-maven-plugin.version>3.3.1</jib-maven-plugin.version>
@@ -56,70 +56,11 @@
 			<artifactId>oci-java-sdk-common-httpclient-jersey</artifactId>
 			<version>${oci.sdk.version}</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>com.oracle.oci.sdk</groupId>-->
-<!--			<artifactId>oci-java-sdk-artifacts</artifactId>-->
-<!--			<version>${oci.sdk.version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.oracle.oci.sdk</groupId>-->
-<!--			<artifactId>oci-java-sdk-vault</artifactId>-->
-<!--			<version>${oci.sdk.version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.oracle.oci.sdk</groupId>-->
-<!--			<artifactId>oci-java-sdk-secrets</artifactId>-->
-<!--			<version>${oci.sdk.version}</version>-->
-<!--		</dependency>-->
-		<dependency>
-			<groupId>com.oracle.oci.sdk</groupId>
-			<artifactId>oci-java-sdk-aivision</artifactId>
-			<version>${oci.sdk.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.oracle.oci.sdk</groupId>
-			<artifactId>oci-java-sdk-aispeech</artifactId>
-			<version>${oci.sdk.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.oracle.oci.sdk</groupId>
-			<artifactId>oci-java-sdk-ailanguage</artifactId>
-			<version>${oci.sdk.version}</version>
-		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>com.oracle.oci.sdk</groupId>-->
-<!--			<artifactId>oci-java-sdk-streaming</artifactId>-->
-<!--			<version>${oci.sdk.version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.oracle.oci.sdk</groupId>-->
-<!--			<artifactId>oci-java-sdk-objectstorage</artifactId>-->
-<!--			<version>${oci.sdk.version}</version>-->
-<!--		</dependency>-->
-
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>2.0.6</version>
 		</dependency>
-
-<!--		<dependency>-->
-<!--			<groupId>org.apache.commons</groupId>-->
-<!--			<artifactId>commons-lang3</artifactId>-->
-<!--			<version>3.12.0</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.google.code.google-collections</groupId>-->
-<!--			<artifactId>google-collect</artifactId>-->
-<!--			<version>snapshot-20080530</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>commons-codec</groupId>-->
-<!--			<artifactId>commons-codec</artifactId>-->
-<!--			<version>1.15</version>-->
-<!--		</dependency>-->
-
-
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -189,6 +130,40 @@
 			<groupId>com.theokanning.openai-gpt3-java</groupId>
 			<artifactId>service</artifactId>
 			<version>0.12.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.oracle.oci.sdk</groupId>
+			<artifactId>oci-java-sdk-ailanguage</artifactId>
+			<version>${oci.sdk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.oci.sdk</groupId>
+			<artifactId>oci-java-sdk-objectstorage</artifactId>
+			<version>${oci.sdk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.oci.sdk</groupId>
+			<artifactId>oci-java-sdk-aivision</artifactId>
+			<version>${oci.sdk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.oci.sdk</groupId>
+			<artifactId>oci-java-sdk-aispeech</artifactId>
+			<version>${oci.sdk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.oci.sdk</groupId>
+			<artifactId>oci-java-sdk-ailanguage</artifactId>
+			<version>${oci.sdk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.oci.sdk</groupId>
+			<artifactId>oci-java-sdk-generativeai</artifactId>
+			<!-- <version>3.25.1-preview1-20230906.204234-1</version> -->
+			<version>3.25.1-preview1-SNAPSHOT</version>
+			<!-- <systemPath>${basedir}/../genai-sdk/oci-java-sdk-generativeai-3.25.1-preview1-20230906.204234-1.jar</systemPath> -->
+			<!-- <scope>system</scope> -->
 		</dependency>
     </dependencies>
 	<dependencyManagement>
