@@ -13,9 +13,17 @@ public class AIApplication {
 	public static final String OCI_VISION_SERVICE_ENDPOINT = System.getenv("OCI_VISION_SERVICE_ENDPOINT");
 	public static final String OCI_SPEECH_SERVICE_ENDPOINT = System.getenv("OCI_SPEECH_SERVICE_ENDPOINT");
 	public static final String OCI_GENAI_SERVICE_ENDPOINT = System.getenv("OCI_GENAI_SERVICE_ENDPOINT");
+    public static final String VISIONAI_XRAY_BREASTCANCER_MODEL_OCID = System.getenv("VISIONAI_XRAY_MODEL_OCID");
+    public static final String VISIONAI_XRAY_LUNGCANCER_MODEL_OCID = System.getenv("VISIONAI_XRAY_LUNGCANCER_MODEL_OCID");
+    public static final String VISIONAI_XRAY_PNEUMONIA_MODEL_OCID = System.getenv("VISIONAI_XRAY_PNEUMONIA_MODEL_OCID");
 
-	static {
+    static {
+		System.out.println("AIApplication.static initializer SPRING_DATASOURCE_URL:" + System.getenv("SPRING_DATASOURCE_URL"));
+		System.out.println("AIApplication.static initializer spring.datasource.url:" + System.getenv("spring.datasource.url"));
 		System.out.println("AIApplication.static initializer COMPARTMENT_ID:" + COMPARTMENT_ID);
+		System.out.println("AIApplication.static initializer VISIONAI_XRAY_MODEL_OCID:" + VISIONAI_XRAY_BREASTCANCER_MODEL_OCID);
+		System.out.println("AIApplication.static initializer VISIONAI_XRAY_LUNGCANCER_MODEL_OCID:" + VISIONAI_XRAY_LUNGCANCER_MODEL_OCID);
+		System.out.println("AIApplication.static initializer VISIONAI_XRAY_PNEUMONIA_MODEL_OCID:" + VISIONAI_XRAY_PNEUMONIA_MODEL_OCID);
 		System.out.println("AIApplication.static initializer OBJECTSTORAGE_NAMESPACE:" + OBJECTSTORAGE_NAMESPACE);
 		System.out.println("AIApplication.static initializer OBJECTSTORAGE_BUCKETNAME:" + OBJECTSTORAGE_BUCKETNAME);
 		System.out.println("AIApplication.static initializer ORDS_ENDPOINT_URL:" + ORDS_ENDPOINT_URL);

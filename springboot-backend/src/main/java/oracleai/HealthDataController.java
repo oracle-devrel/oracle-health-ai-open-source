@@ -206,7 +206,7 @@ public class HealthDataController {
                 "ORDER BY count DESC " +
                 "FETCH FIRST 300 ROWS ONLY"; // 7563 rows
         List<Feature> features = new ArrayList<>();
-        System.out.println("getHospitals ...");
+        System.out.println("getHospitals ..." );
         jdbcTemplate.query(sql, new RowMapper() {
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
                 String name = rs.getString("name");

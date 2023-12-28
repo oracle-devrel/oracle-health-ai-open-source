@@ -4,9 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 import 'dart:typed_data'; // for Uint8List
 import 'piechart.dart' as piechart; 
-import 'urllauncher.dart' as urllauncher;
 import 'constants.dart' as constants;
-
 
 void main() => runApp(MyApp());
 
@@ -24,21 +22,15 @@ class MyForm extends StatefulWidget {
   _MyFormState createState() => _MyFormState();
 }
 
-
-
-
-
-
 class _MyFormState extends State<MyForm> {
-  String? dropdownValue;
   Uint8List? fileBytes; 
   String? serverResponse;
   Map<String, dynamic>? parsedResponse ;
   List<dynamic> ?labels;
 
   Future<void> submitForm() async {
-    var request = http.MultipartRequest(
-      'POST', Uri.parse(constants.Constants.backendEndpointAddress + '/imageanalysis/analyzeimage'));
+    var request = http.MultipartRequest('POST', 
+    Uri.parse(constants.Constants.backendEndpointAddress + '/medicaltranscript/medicaltranscript'));
 
     if (fileBytes != null) {
       request.files.add(http.MultipartFile.fromBytes(
@@ -47,20 +39,12 @@ class _MyFormState extends State<MyForm> {
         filename: 'imageforanalysis.png', 
       ));
     }
-
-    request.fields['model'] = dropdownValue ?? '';
-
+    // Removed dropdownValue logic
     var response = await request.send();
     final respStr = await response.stream.bytesToString();  
-
-
     setState(() {
       serverResponse = respStr;
-   //   parsedResponse = jsonDecode(respStr);
-   //   var labels = parsedResponse['labels'] as List?;
-
     });
-
     if (response.statusCode == 200) {
       print("Successfully uploaded");
     } else {
@@ -72,37 +56,14 @@ class _MyFormState extends State<MyForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:  Colors.blue, title: Text('Image Analysis')),
+        backgroundColor:  Colors.blue, title: Text('Medical Transcription and Gen')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            DropdownButton<String>(
-              value: dropdownValue,
-              hint: Text('Select Model'),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownValue = newValue!;
-                });
-              },
-              items: [
-                DropdownMenuItem<String>(
-                  value: 'breastcancer',
-                  child: Text('Breast Cancer and Normal Breast Model'),
-                ),
-                DropdownMenuItem<String>(
-                  value: 'covid',
-                  child: Text('Covid, Pneumonia, and Normal Chest Model'),
-                ),
-                DropdownMenuItem<String>(
-                  value: 'lungcancer',
-                  child: Text('Lung Cancer and Normal Lung Model'),
-                ),
-              ],
-            ),
             ElevatedButton(
               onPressed: () async {
-                FilePickerResult? result = await FilePicker.platform.pickFiles(withData: true);
+                FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.audio, withData: true);
 
                 if (result != null) {
                   setState(() {
@@ -112,16 +73,12 @@ class _MyFormState extends State<MyForm> {
               },
               child: Text('Pick a file'),
             ),
-            if (fileBytes != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Image.memory(fileBytes!, height: 300,), 
-              ),
             ElevatedButton(
               onPressed: submitForm,
               child: Text('Submit'),
             ),
             if (serverResponse != null)
+            
               Row(
                 children: [
                   Expanded(

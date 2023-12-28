@@ -3,6 +3,7 @@ package oracleai.services;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import com.oracle.bmc.Region;
 import com.oracle.bmc.aivision.AIServiceVisionClient;
 import com.oracle.bmc.aivision.model.*;
 import com.oracle.bmc.aivision.requests.AnalyzeImageRequest;
@@ -32,6 +33,7 @@ public class OracleVisionAI {
     public static String processImage(byte[] bytes, ImageFeature feature) throws Exception {
         AuthenticationDetailsProvider provider = AuthProvider.getAuthenticationDetailsProvider();
         AIServiceVisionClient aiServiceVisionClient = AIServiceVisionClient.builder().build(provider);
+        aiServiceVisionClient.setRegion(Region.US_PHOENIX_1);
         List<ImageFeature> features = new ArrayList<>();
         features.add(feature);
         InlineImageDetails inlineImageDetails = InlineImageDetails.builder()

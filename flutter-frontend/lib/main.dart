@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'imageanalysis.dart' as imageanalysis;
 import 'medicaldocs.dart' as medicaldocs;
-import 'medicalspeech.dart' as medicalspeech;
+import 'medicaltranscripts.dart' as medicaltranscripts;
 import 'askai.dart' as askai;
 import 'hospitals.dart' as hospitals;
 import 'causesofdeath.dart' as causesofdeath;
@@ -161,20 +161,18 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (selectedIndex) {
       case 0:
         page = webview.BackEndWidget(
-          url: 'https://sketchfab.com/models/42054970b1ae48e5866ffafea938a0cb/embed', title: '3d models'); 
+          url: constants.Constants.backendEndpointAddress + '/3dmodels.html', title: 'Medical Transcripts' );
         break;
-      case 1: //image analysis - Oracle Vision AI
+      case 1: //image analysis 
         page = imageanalysis.MyForm(); 
         break;
-      case 2: //medical documents - Oracle Doc AI
+      case 2: //medical documents 
         page = medicaldocs.MyForm(); 
         break;
-      case 3: //medical transcripts - Whisper AI and digital assistant
-        page = webview.BackEndWidget(key: UniqueKey(), 
-        url: constants.Constants.backendEndpointAddress + '/medicaltranscripts.html', title: 'Medical Transcripts' );
-        //medicalspeech.MyApp();
+      case 3: //medical transcripts
+        page = medicaltranscripts.MyForm();
         break;
-      case 4: //Ask AI - Cohere
+      case 4: //Ask AI 
         page = askai.AskAIFormWidget();
         break;
       case 5: //Hospitals - OpenStreetMaps
@@ -183,11 +181,11 @@ class _MyHomePageState extends State<MyHomePage> {
       case 6: //Causes Of Death 
         page = causesofdeath.CauseOfDeathWidget();
         break;
-      case 7: //Analytics - grafana or Apache superset
+      case 7: //Analytics 
         page = analytics.AnalyticsCancerResearchWidget();
         // page = analytics.DynamicbarChart();
         break;
-      case 8: //Analytics - grafana or Apache superset
+      case 8: //Analytics 
         page = analyticschart.MyHomePage();
         // page = analytics.DynamicbarChart();
         break;
