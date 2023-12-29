@@ -51,7 +51,7 @@ class _FormWidgetState extends State<FormWidget> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor:  Colors.blue,
-        title: Text('Ask Cohere AI'),
+        title: Text('Ask Oracle Gen AI'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
