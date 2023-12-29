@@ -2,10 +2,10 @@ spring:
   datasource:
 #    Example where TNS_ADMIN is the location of the wallet
     url: "jdbc:oracle:thin:@indadw_high?TNS_ADMIN=/Users/pparkins/Downloads/myhealthcarewallet"
-#    username: testuser
-    username: ADMIN
-#    password: testpassword
-    password: Livelabs!@2024
+    username: testuser
+#    username: ADMIN
+    password: testpassword
+#    password: Livelabs!@2024
     driver-class-name: oracle.jdbc.OracleDriver
     type: oracle.ucp.jdbc.PoolDataSource
     oracleucp:

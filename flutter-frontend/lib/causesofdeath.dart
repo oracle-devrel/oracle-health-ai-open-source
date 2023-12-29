@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'causeofdeathjson.dart' as causeofdeathjson;
-import 'constants.dart' as constants;
 
 
 class CauseOfDeathWidget extends StatefulWidget {

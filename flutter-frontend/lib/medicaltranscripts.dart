@@ -12,17 +12,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyForm(),
+      home: FormWidget(),
     );
   }
 }
 
-class MyForm extends StatefulWidget {
+class FormWidget extends StatefulWidget {
   @override
-  _MyFormState createState() => _MyFormState();
+  _FormWidgetState createState() => _FormWidgetState();
 }
 
-class _MyFormState extends State<MyForm> {
+class _FormWidgetState extends State<FormWidget> {
   Uint8List? fileBytes; 
   String? serverResponse;
   Map<String, dynamic>? parsedResponse ;

@@ -7,6 +7,7 @@ import 'medicaltranscripts.dart' as medicaltranscripts;
 import 'askai.dart' as askai;
 import 'hospitals.dart' as hospitals;
 import 'causesofdeath.dart' as causesofdeath;
+import 'administration.dart' as administration;
 import 'analyticscancer.dart' as analytics;
 import 'analyticsLineChart.dart' as analyticschart;
 import 'webview.dart' as webview;
@@ -164,16 +165,16 @@ class _MyHomePageState extends State<MyHomePage> {
           url: constants.Constants.backendEndpointAddress + '/3dmodels.html', title: 'Medical Transcripts' );
         break;
       case 1: //image analysis 
-        page = imageanalysis.MyForm(); 
+        page = imageanalysis.FormWidget(); 
         break;
       case 2: //medical documents 
-        page = medicaldocs.MyForm(); 
+        page = medicaldocs.FormWidget(); 
         break;
       case 3: //medical transcripts
-        page = medicaltranscripts.MyForm();
+        page = medicaltranscripts.FormWidget();
         break;
       case 4: //Ask AI 
-        page = askai.AskAIFormWidget();
+        page = askai.FormWidget();
         break;
       case 5: //Hospitals - OpenStreetMaps
         page = hospitals.MapWidget();
@@ -183,15 +184,12 @@ class _MyHomePageState extends State<MyHomePage> {
         break;
       case 7: //Analytics 
         page = analytics.AnalyticsCancerResearchWidget();
-        // page = analytics.DynamicbarChart();
         break;
       case 8: //Analytics 
-        page = analyticschart.MyHomePage();
-        // page = analytics.DynamicbarChart();
+        page = analyticschart.AnslyiticsChartWidget();
         break;
       case 9: //Administration - expense reports from the medical documents 
-        // page = chart.MyHomePage();
-        page = causesofdeath.CauseOfDeathWidget();
+        page = administration.DocumentAnalysisWidget();
         break;
       case 10: //Architecture
         page = webview.BackEndWidget(key: UniqueKey(), 

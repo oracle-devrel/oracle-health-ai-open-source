@@ -14,14 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyForm(),
+      home: FormWidget(),
     );
   }
 }
 
-class MyForm extends StatefulWidget {
+class FormWidget extends StatefulWidget {
   @override
-  _MyFormState createState() => _MyFormState();
+  _FormWidgetState createState() => _FormWidgetState();
 }
 
 
@@ -29,7 +29,7 @@ class MyForm extends StatefulWidget {
 
 
 
-class _MyFormState extends State<MyForm> {
+class _FormWidgetState extends State<FormWidget> {
   String? dropdownValue;
   Uint8List? fileBytes; 
   String? serverResponse;

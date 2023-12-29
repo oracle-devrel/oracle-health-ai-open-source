@@ -1,6 +1,5 @@
 package oracleai.services;
 
-import org.jetbrains.annotations.Nullable;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -56,7 +55,6 @@ public class ORDSCalls {
         return callTextSearch(ordsEndpoint, jsonPayload);
     }
 
-    @Nullable
     private static String callTextSearch(String ordsEndpoint, String jsonPayload) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

@@ -2,26 +2,12 @@ package oracleai;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.theokanning.openai.image.CreateImageRequest;
-import com.theokanning.openai.service.OpenAiService;
-import oracleai.services.ImageGeneration;
 import oracleai.services.OracleGenAI;
 import oracleai.services.OracleObjectStore;
 import oracleai.services.OracleSpeechAI;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.*;
-import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.sound.sampled.*;
-import java.io.*;
-import java.time.Duration;
-import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController

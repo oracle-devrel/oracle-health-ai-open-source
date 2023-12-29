@@ -118,11 +118,11 @@
 			<version>5.3.25</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.theokanning.openai-gpt3-java</groupId>
-			<artifactId>service</artifactId>
-			<version>0.12.0</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.theokanning.openai-gpt3-java</groupId>-->
+<!--			<artifactId>service</artifactId>-->
+<!--			<version>0.12.0</version>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>com.oracle.oci.sdk</groupId>
@@ -146,7 +146,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.oracle.oci.sdk</groupId>
-			<artifactId>oci-java-sdk-ailanguage</artifactId>
+			<artifactId>oci-java-sdk-aidocument</artifactId>
 			<version>${oci.sdk.version}</version>
 		</dependency>
 		<dependency>
