@@ -3,6 +3,7 @@ package oracleai.services;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import com.oracle.bmc.Region;
 import com.oracle.bmc.aivision.AIServiceVisionClient;
 import com.oracle.bmc.aivision.model.*;
 import com.oracle.bmc.aivision.requests.AnalyzeImageRequest;
