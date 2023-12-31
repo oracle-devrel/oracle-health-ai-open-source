@@ -14,14 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyForm(),
+      home: FormWidget(),
     );
   }
 }
 
-class MyForm extends StatefulWidget {
+class FormWidget extends StatefulWidget {
   @override
-  _MyFormState createState() => _MyFormState();
+  _FormWidgetState createState() => _FormWidgetState();
 }
 
 
@@ -29,7 +29,7 @@ class MyForm extends StatefulWidget {
 
 
 
-class _MyFormState extends State<MyForm> {
+class _FormWidgetState extends State<FormWidget> {
   String? dropdownValue;
   Uint8List? fileBytes; 
   String? serverResponse;
@@ -79,7 +79,7 @@ class _MyFormState extends State<MyForm> {
           children: [
             DropdownButton<String>(
               value: dropdownValue,
-              hint: Text('Please choose one'),
+              hint: Text('Select Model'),
               onChanged: (String? newValue) {
                 setState(() {
                   dropdownValue = newValue!;
@@ -121,17 +121,12 @@ class _MyFormState extends State<MyForm> {
               onPressed: submitForm,
               child: Text('Submit'),
             ),
-            // ,urllauncher.MyHomePage(title: "asdf")._launchInWebViewOrVC(new Uri("")),
             if (serverResponse != null)
-            
               Row(
                 children: [
                   Expanded(
                     child: Text(serverResponse!),
-                  ),
-                  Expanded(
-                    child: piechart.PieChartSample3(),
-                  ),
+                  )
                 ],
               ),
           ],

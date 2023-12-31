@@ -4,11 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import oracleai.geojson.Feature;
 import oracleai.geojson.FeatureCollection;
 
+import java.sql.Clob;
 import java.sql.ResultSet;
 
 import oracleai.json.AnnualDeathCause;
 import oracleai.json.CancerOpenResearch;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +27,9 @@ import java.util.List;
 @RequestMapping("/data")
 public class HealthDataController {
 
+    private String schema = "DEMOUSER."; //including "." suffix, eg "DEMOUSER.", if other than current user for some reason
+
     JdbcTemplate jdbcTemplate;
-    ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
     public HealthDataController(DataSource dataSource) {
@@ -68,7 +74,7 @@ public class HealthDataController {
         String sql = "SELECT ENTITY, YEAR, DEATHS_MENINGITIS, DEATHS_ALZHEIMERS_DISEASE, " +
                 "DEATHS_PARKINSON_DISEASE, DEATHS_NUTRITIONAL_DEFICIENCIES, DEATHS_MALARIA, " +
                 "DEATHS_MATERNAL_DISORDERS " +
-                "FROM DEMOUSER.ANNUAL_DEATH_CAUSE WHERE YEAR = 2019 " +
+                "FROM " + schema + "ANNUAL_DEATH_CAUSE WHERE YEAR = 2019 " +
                 "FETCH FIRST 100 ROWS ONLY"; // 7232 rows
         List<AnnualDeathCause> annualDeathCauses = new ArrayList<>();
         System.out.println("getCausesOfDeath ...");
@@ -140,7 +146,7 @@ public class HealthDataController {
                 "    SUM(SEVERE_UPPER_BOUND) AS Sum_Severe_Upper_Bound," +
                 "    SUM(FATALITY_LOWER_BOUND) AS Sum_Fatality_Lower_Bound," +
                 "    SUM(FATALITY_UPPER_BOUND) AS Sum_Fatality_Upper_Bound " +
-                "FROM DEMOUSER.CANCER_OPEN_RESEARCH " +
+                "FROM " + schema + "CANCER_OPEN_RESEARCH " +
                 "GROUP BY  TO_CHAR(DATE_RW, 'Month'), EXTRACT(MONTH FROM DATE_RW), EXTRACT(YEAR FROM DATE_RW) " +
                 "ORDER BY EXTRACT(YEAR FROM DATE_RW), EXTRACT(MONTH FROM DATE_RW)"; // 37 rows
         List<CancerOpenResearch> cancerOpenResearches = new ArrayList<>();
@@ -201,12 +207,12 @@ public class HealthDataController {
     @GetMapping("/getHospitals")
     public String getHospitals() throws Exception {
         String sql = "SELECT name, ADDRESS, longitude, latitude, COUNT(*) as count " +
-                "FROM DEMOUSER.US_HOSPITALS " +
+                "FROM " + schema + "US_HOSPITALS " +
                 "GROUP BY name, ADDRESS, longitude, latitude " +
                 "ORDER BY count DESC " +
                 "FETCH FIRST 300 ROWS ONLY"; // 7563 rows
         List<Feature> features = new ArrayList<>();
-        System.out.println("getHospitals ...");
+        System.out.println("getHospitals ..." );
         jdbcTemplate.query(sql, new RowMapper() {
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
                 String name = rs.getString("name");
@@ -231,111 +237,32 @@ public class HealthDataController {
 
 
 
+    @GetMapping("/getDocuments")
+    public String getDocuments() throws Exception {
+//    public ResponseEntity<String> getDocuments() throws Exception {
+        String sql = "SELECT jsondata FROM aidocument_results";
+        List<JSONObject> results = jdbcTemplate.query(sql, new DocumentAnalysisRowMapper());
 
+        JSONArray jsonArray = new JSONArray();
+        for (JSONObject jsonObject : results) {
+            jsonArray.put(jsonObject);
+        }
 
-// END
-
-
-
-
-
-
-
-
-
-
-
-
-    @GetMapping("/getGeoCacheTop100")
-    public String getGeoCacheTop10() throws Exception {
-        String sql = "SELECT creatorname, imageurl, longitude, latitude, COUNT(*) as count " +
-                "FROM geocache_journal " +
-                "GROUP BY creatorname, imageurl, longitude, latitude " +
-                "ORDER BY count DESC " +
-                "FETCH FIRST 100 ROWS ONLY";
-        List<Feature> features = new ArrayList<>();
-        jdbcTemplate.query(sql, new RowMapper() {
-            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                String creatorname = rs.getString("creatorname");
-                String imageurl = rs.getString("imageurl");
-                double longitude = rs.getDouble("longitude");
-                double latitude = rs.getDouble("latitude");
-                int count = rs.getInt("count");
-                //We don't actually return count to the front end currently but would be nice...
-                System.out.println("getGeoCacheTop10 creatorname = " + creatorname + ", imageurl = " + imageurl +
-                        ", longitude = " + longitude + ", latitude = " + latitude + " count=" + count);
-                //visitorname is "" as we are doing counts from all visitors...
-                //(see getGeoCacheJournal method for query of all journal entries including visitorname)
-                Feature feature = new Feature(creatorname, "", imageurl, longitude, latitude);
-                System.out.println("getGeoCacheTop10feature:" + feature);
-                features.add(feature);
-                return "";
-            }
-        });
-        System.out.println("getGeoCacheTop5 featureslength:" + features.size());
-        String json = FeatureCollection.build(features).toJson();
-        System.out.println("getGeoCacheTop5 json:" + json);
-        return json;
+        System.out.println("DocumentAnalysisRowMapper.jsonArray.toString() " + jsonArray.toString());
+        return jsonArray.toString();
+//        return ResponseEntity.ok(jsonArray.toString());
     }
 
-
-
-
-    //persist a hospital with it's location, etc.
-    @PostMapping("/addGeoCache")
-    public String addgeocache(@RequestBody FeatureCollection geodata) throws Exception {
-        System.out.println("OracleGeoJSONController.addgeocache geodata.toJson():" + geodata.toJson());
-        String sql = "INSERT INTO geocache (geocache_doc) VALUES (?)";
-        System.out.println("OracleGeoJSONController.addgeocache:" + geodata.toJson());
-        jdbcTemplate.update(sql, geodata.toJson());
-        System.out.println("Inserted successfully");
-        return geodata.toString();
+    private static class DocumentAnalysisRowMapper implements RowMapper<JSONObject> {
+        @Override
+        public JSONObject mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Clob clob = rs.getClob("jsondata");
+            String jsonString = clob.getSubString(1, (int) clob.length());
+            System.out.println("DocumentAnalysisRowMapper.mapRow " + jsonString);
+            return new JSONObject(jsonString);
+        }
     }
-
-
-/**
-     DEMOUSER.CLINICAL_2
-     Name                        Null? Type
-     --------------------------- ----- --------------
-     CASE_ID                           NUMBER
-     CASE_SUBMITTER_ID                 VARCHAR2(4000)
-     PROJECT_ID                        VARCHAR2(4000)
-     AGE_AT_INDEX                      NUMBER
-     DAYS_TO_BIRTH                     NUMBER
-     DAYS_TO_DEATH                     NUMBER
-     ETHNICITY                         VARCHAR2(4000)
-     GENDER                            VARCHAR2(4000)
-     RACE                              VARCHAR2(4000)
-     VITAL_STATUS                      VARCHAR2(4000)
-     YEAR_OF_BIRTH                     NUMBER
-     YEAR_OF_DEATH                     NUMBER
-     AGE_AT_DIAGNOSIS                  NUMBER
-     AJCC_PATHOLOGIC_M                 VARCHAR2(4000)
-     AJCC_PATHOLOGIC_N                 VARCHAR2(4000)
-     AJCC_PATHOLOGIC_STAGE             VARCHAR2(4000)
-     AJCC_PATHOLOGIC_T                 VARCHAR2(4000)
-     AJCC_STAGING_SYSTEM_EDITION       VARCHAR2(4000)
-     CLASSIFICATION_OF_TUMOR           VARCHAR2(4000)
-     DAYS_TO_DIAGNOSIS                 NUMBER
-     DAYS_TO_LAST_FOLLOW_UP            NUMBER
-     ICD_10_CODE                       VARCHAR2(4000)
-     LAST_KNOWN_DISEASE_STATUS         VARCHAR2(4000)
-     MORPHOLOGY                        VARCHAR2(4000)
-     PRIMARY_DIAGNOSIS                 VARCHAR2(4000)
-     PRIOR_MALIGNANCY                  VARCHAR2(4000)
-     PRIOR_TREATMENT                   VARCHAR2(4000)
-     PROGRESSION_OR_RECURRENCE         VARCHAR2(4000)
-     SITE_OF_RESECTION_OR_BIOPSY       VARCHAR2(4000)
-     SYNCHRONOUS_MALIGNANCY            VARCHAR2(4000)
-     TISSUE_OR_ORGAN_OF_ORIGIN         VARCHAR2(4000)
-     YEAR_OF_DIAGNOSIS                 NUMBER
-     TREATMENT_OR_THERAPY              VARCHAR2(4000)
-     TREATMENT_TYPE                    VARCHAR2(4000)
-
-     */
 }
-
-
 
 
 

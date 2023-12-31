@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'constants.dart' as constants;
 
 class AnnualDeathCause {
   final String entity;
@@ -39,7 +40,7 @@ class AnnualDeathCause {
 
 Future<List<AnnualDeathCause>> fetchAnnualDeathCauses() async {
   final response = await http.get(
-      Uri.parse('http://129.80.34.130:8080/data/getCausesOfDeath'));
+      Uri.parse(constants.Constants.backendEndpointAddress + '/data/getCausesOfDeath'));
 
   if (response.statusCode == 200) {
     List<dynamic> jsonData = json.decode(response.body);

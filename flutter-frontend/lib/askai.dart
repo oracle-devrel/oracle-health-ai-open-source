@@ -5,12 +5,12 @@ import 'constants.dart' as constants;
 
 
 
-class AskAIFormWidget extends StatefulWidget {
+class FormWidget extends StatefulWidget {
   @override
-  _AskAIFormWidgetState createState() => _AskAIFormWidgetState();
+  _FormWidgetState createState() => _FormWidgetState();
 }
 
-class _AskAIFormWidgetState extends State<AskAIFormWidget> {
+class _FormWidgetState extends State<FormWidget> {
   final _formKey = GlobalKey<FormState>();
   String _question = '';
   String _serverResponse = ''; 
@@ -51,7 +51,7 @@ class _AskAIFormWidgetState extends State<AskAIFormWidget> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor:  Colors.blue,
-        title: Text('Ask Cohere AI'),
+        title: Text('Ask Oracle Gen AI'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

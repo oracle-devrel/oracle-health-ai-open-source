@@ -8,20 +8,20 @@ class _ChartApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(),
+      home: AnslyiticsChartWidget(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class AnslyiticsChartWidget extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  MyHomePage({Key? key}) : super(key: key);
+  AnslyiticsChartWidget({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _AnslyiticsChartWidgetState createState() => _AnslyiticsChartWidgetState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _AnslyiticsChartWidgetState extends State<AnslyiticsChartWidget> {
   List<_SalesData> severeUpperData = [
     _SalesData('Jan', 2),
     _SalesData('Feb', 4),

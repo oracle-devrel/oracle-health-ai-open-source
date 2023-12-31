@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 
 import 'imageanalysis.dart' as imageanalysis;
 import 'medicaldocs.dart' as medicaldocs;
-import 'medicalspeech.dart' as medicalspeech;
+import 'medicaltranscripts.dart' as medicaltranscripts;
 import 'askai.dart' as askai;
 import 'hospitals.dart' as hospitals;
 import 'causesofdeath.dart' as causesofdeath;
+import 'administration.dart' as administration;
 import 'analyticscancer.dart' as analytics;
 import 'analyticsLineChart.dart' as analyticschart;
 import 'webview.dart' as webview;
@@ -161,49 +162,48 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (selectedIndex) {
       case 0:
         page = webview.BackEndWidget(
-          url: 'https://sketchfab.com/models/42054970b1ae48e5866ffafea938a0cb/embed', title: '3d models'); 
+          url: constants.Constants.backendEndpointAddress + '/3dmodels.html', title: 'Medical Transcripts' );
         break;
-      case 1: //image analysis - Oracle Vision AI
-        page = imageanalysis.MyForm(); 
+      case 1: //image analysis 
+        page = imageanalysis.FormWidget(); 
         break;
-      case 2: //medical documents - Oracle Doc AI
-        page = medicaldocs.MyForm(); 
+      case 2: //medical documents 
+        page = medicaldocs.FormWidget(); 
         break;
-      case 3: //medical transcripts - Whisper AI and digital assistant
-        page = webview.BackEndWidget(key: UniqueKey(), 
-        url: constants.Constants.backendEndpointAddress + '/medicaltranscripts.html', title: 'Medical Transcripts' );
-        //medicalspeech.MyApp();
+      case 3: //medical transcripts
+        page = medicaltranscripts.FormWidget();
         break;
-      case 4: //Ask AI - Cohere
-        page = askai.AskAIFormWidget();
+      case 4: //Ask AI 
+        page = askai.FormWidget();
         break;
-      case 5: //Hospitals - OpenStreetMaps
+      case 5: //Digital Assistant 
+        page = webview.BackEndWidget(
+          url: constants.Constants.backendEndpointAddress + '/oda.html', title: 'Digital Assistant' );
+        break;
+      case 6: //Hospitals - OpenStreetMaps
         page = hospitals.MapWidget();
         break;
-      case 6: //Causes Of Death 
+      case 7: //Causes Of Death 
         page = causesofdeath.CauseOfDeathWidget();
         break;
-      case 7: //Analytics - grafana or Apache superset
+      case 8: //Analytics 
         page = analytics.AnalyticsCancerResearchWidget();
-        // page = analytics.DynamicbarChart();
         break;
-      case 8: //Analytics - grafana or Apache superset
-        page = analyticschart.MyHomePage();
-        // page = analytics.DynamicbarChart();
+      case 9: //Analytics 
+        page = analyticschart.AnslyiticsChartWidget();
         break;
-      case 9: //Administration - expense reports from the medical documents 
-        // page = chart.MyHomePage();
-        page = causesofdeath.CauseOfDeathWidget();
+      case 10: //Administration - expense reports from the medical documents 
+        page = administration.DocumentAnalysisWidget();
         break;
-      case 10: //Architecture
+      case 11: //Architecture
         page = webview.BackEndWidget(key: UniqueKey(), 
         url: constants.Constants.backendEndpointAddress + '/OracleHealthAI-FlutterSpringBootStack.png', title: 'Architecture Flutter And Spring Boot' ); 
         break;
-      case 11: //Architecture MERN
+      case 12: //Architecture MERN
         page = webview.BackEndWidget(key: UniqueKey(), 
         url: constants.Constants.backendEndpointAddress + '/OracleHealthAI-MERNStack.png', title: 'Architecture MERN Stack (Oracle with MongoDB adapter, Express, React, NodeJS)' ); 
         break;
-      case 12: //YouTube video
+      case 13: //YouTube video
         page = webview.BackEndWidget(key: UniqueKey(), 
         url: 'https://www.youtube.com/embed/VjeoHU4I6SI', title: 'YouTube Walthrough Video' ); 
         break;
@@ -250,6 +250,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       BottomNavigationBarItem(
                         icon: Icon(Icons.question_answer),
                         label: 'Ask AI',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.question_answer),
+                        label: 'Digital Assistant',
                       ),
                       BottomNavigationBarItem(
                         icon: Icon(Icons.local_hospital),
@@ -320,6 +324,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       NavigationRailDestination(
                         icon: Icon(Icons.question_answer),
                         label: Text('Ask AI'),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.question_answer),
+                        label: Text('Digital Assistant'),
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.local_hospital),
