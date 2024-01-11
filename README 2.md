@@ -1,4 +1,4 @@
-# Oracle AI For Economic and Social Sustainable Development Livelabs Workshop
+# Oracle AI For Healthcare (Open Source version) Livelabs Workshop
 
 This a temporarily readme for the soon to be released workshop.
 
