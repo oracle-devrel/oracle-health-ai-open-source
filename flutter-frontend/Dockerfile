@@ -23,7 +23,7 @@ RUN flutter doctor
 RUN flutter channel master
 RUN flutter upgrade
 RUN flutter config --enable-web
-#COPY server/chrome.dart /usr/local/flutter/packages/flutter_tools/lib/src/web/chrome.dart
+COPY chrome.dart /usr/local/flutter/packages/flutter_tools/lib/src/web/chrome.dart
 
 # Copy files to container and build
 RUN mkdir /app/

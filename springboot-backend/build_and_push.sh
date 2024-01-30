@@ -1,5 +1,20 @@
 #!/bin/bash
 
-#The following is temporary until release is available in maven and only required to be called once...
-mvn org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file -Dfile=lib/oci-java-sdk-generativeai-3.25.1-preview1-20230906.204234-1.jar
-mvn clean package
+export IMAGE_NAME=healthai-backend-springboot
+export IMAGE_VERSION=0.1
+
+if [ -z "$DOCKER_REGISTRY" ]; then
+    echo "Error: DOCKER_REGISTRY env variable needs to be set!"
+    exit 1
+fi
+
+
+export IMAGE=${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_VERSION}
+
+mvn clean package spring-boot:repackage
+docker build -t=$IMAGE .
+
+docker push "$IMAGE"
+if [  $? -eq 0 ]; then
+    docker rmi "$IMAGE"
+fi

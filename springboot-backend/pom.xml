@@ -149,13 +149,11 @@
 			<artifactId>oci-java-sdk-aidocument</artifactId>
 			<version>${oci.sdk.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.oracle.oci.sdk</groupId>
-			<artifactId>oci-java-sdk-generativeai</artifactId>
-			<!-- <version>3.25.1-preview1-20230906.204234-1</version> -->
-			<version>3.25.1-preview1-SNAPSHOT</version>
-			<!-- <systemPath>${basedir}/../genai-sdk/oci-java-sdk-generativeai-3.25.1-preview1-20230906.204234-1.jar</systemPath> -->
-			<!-- <scope>system</scope> -->
+			<artifactId>oci-java-sdk-generativeaiinference</artifactId>
+			<version>3.32.1</version>
 		</dependency>
     </dependencies>
 	<dependencyManagement>

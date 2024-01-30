@@ -162,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (selectedIndex) {
       case 0:
         page = webview.BackEndWidget(
-          url: constants.Constants.backendEndpointAddress + '/3dmodels.html', title: 'Medical Transcripts' );
+          url: constants.Constants.backendEndpointAddress + '/3dmodels.html', title: 'Home (3D Models)' );
         break;
       case 1: //image analysis 
         page = imageanalysis.FormWidget(); 

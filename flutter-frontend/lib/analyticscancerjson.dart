@@ -54,6 +54,3 @@ Future<List<CancerOpenResearch>> fetchCancerOpenResearch() async {
 }
 
 
-
-
-
